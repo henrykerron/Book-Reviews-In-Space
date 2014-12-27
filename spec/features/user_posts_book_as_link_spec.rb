@@ -22,6 +22,6 @@ feature "post a book as a link", %q(
 			fill_in "URL", with: "https://www.goodreads.com/book/show/2767052-the-hunger-games?from_search=true"
 			click_on "Add Book"
 
-			expect(page).to have_content("You've posted a book successfully")
+			expect(page).to have_content("New book submitted successfully!")
 		end
 end
