@@ -25,6 +25,8 @@ feature "user signs up", %q(
 		click_button "Sign up"
 
 		expect(page).to have_content "Welcome! You have signed up successfully."
+		expect(page).to_not have_link "Sign Up"
+		expect(page).to have_link "Sign Out"
 	end
 
 	scenario "passwords do not match" do
