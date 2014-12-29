@@ -15,9 +15,9 @@ feature "user signs up", %q(
 
 
 	scenario "user fills in valid information in sign up form" do
-		visit books_path
+		visit root_path
 		click_on "Sign Up"
-		
+
 		select "astronaut", from: "Role"
 		fill_in "Email", with: "gp@gmail.com"
 		fill_in "Password", with: "password"
@@ -25,5 +25,18 @@ feature "user signs up", %q(
 		click_button "Sign up"
 
 		expect(page).to have_content "Welcome! You have signed up successfully."
+	end
+
+	scenario "passwords do not match" do
+		visit root_path
+		click_on "Sign Up"
+
+		select "astronaut", from: "Role"
+		fill_in "Email", with: "gp@gmail.com"
+		fill_in "Password", with: "password"
+		fill_in "Password confirmation", with: "passwor"
+		click_button "Sign up"
+
+		expect(page).to have_content "Password confirmation doesn't match"
 	end
 end
