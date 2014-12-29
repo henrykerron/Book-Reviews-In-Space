@@ -1,3 +1,7 @@
 <% @books.each do |book| %>
-	<%= book.title %>
+<ul>
+	<li><%= book.title %></li>
+	<li><%= book.description %></li>
+	<li><%= book.url %></li>
+</ul>
 <% end %>
