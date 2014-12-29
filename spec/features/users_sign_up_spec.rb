@@ -58,4 +58,17 @@ feature "user signs up", %q(
 
 		expect(page).to have_content "Email has already been taken"
 	end
+
+	scenario "email not formatted correctly" do
+		visit root_path
+		click_on "Sign Up"
+
+		select "astronaut", from: "Role"
+		fill_in "Email", with: "gp"
+		fill_in "Password", with: "password"
+		fill_in "Password confirmation", with: "password"
+		click_button "Sign up"
+
+		expect(page).to have_content "Email is invalid"	
+	end
 end
