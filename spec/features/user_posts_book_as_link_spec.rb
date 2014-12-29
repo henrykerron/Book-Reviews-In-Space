@@ -3,7 +3,7 @@ require 'rails_helper'
 feature "post a book as a link", %q(
 
 	As a user
-	I want to post a link to a book
+	I want to post a new book
 	So I can share what I'm reading with others
 
 	Acceptance Criteria
@@ -12,9 +12,20 @@ feature "post a book as a link", %q(
 	[x] I must provide a description that is at least 10 characters long
 	[x] I must provide a valid URL to the book
 	[x] I must be presented with errors if I fill out the form incorrectly
+	[]	I must be signed in to add a new book
 	) do
-
+	context "authenticated user" do
 		before(:each) do
+			user = User.create(
+				email: "gp@gmail.com",
+				password: "password"
+				)
+
+			visit new_user_session_path
+			fill_in "Email", with: user.email
+			fill_in "Password", with: user.password
+			click_button "Log in"
+
 			visit new_book_path
 		end
 
@@ -35,4 +46,13 @@ feature "post a book as a link", %q(
 			expect(page).to have_content("Description is too short (minimum is 10 characters)")
 			expect(page).to have_content("Url can't be blank")
 		end
+	end
+
+	context "unauthenticated user" do
+		scenario	"cannot accesst add-new-book form" do
+			visit new_book_path
+
+			expect(page).to have_content "You need to sign in or sign up before continuing."
+		end
+	end
 end

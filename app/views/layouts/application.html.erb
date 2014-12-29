@@ -11,13 +11,16 @@
 		<% if !user_signed_in? %>
 		<li><%= link_to "Sign Up", new_user_registration_path %></li>
 		<li><%= link_to "Sign In", new_user_session_path %></li>
+		<li><%= link_to "Post a book!", new_book_path %></li>
 		<% else %>
+		<li><%= link_to "Post a book!", new_book_path %></li>
 		<li><%= link_to "Sign Out", destroy_user_session_path, :method => 
 		:delete %></li>
+		<li><%= link_to "Your Book List", books_path %></li>
 		<% end %>
 	</ul>
 
-	<div class="notice devise"><%= notice %></div>
+	<!-- div class="notice devise"><%= notice %></div> -->
   <div class="alert devise"><%= alert %></div>
 
 	<% flash.each do |type, message| %>
