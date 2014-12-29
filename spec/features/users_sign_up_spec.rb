@@ -39,4 +39,23 @@ feature "user signs up", %q(
 
 		expect(page).to have_content "Password confirmation doesn't match"
 	end
+
+
+	scenario "email has already been registered" do
+		existing_user = User.create(
+			email: "gp@gmail.com",
+			password: "password"
+			)
+
+		visit root_path
+		click_on "Sign Up"
+
+		select "astronaut", from: "Role"
+		fill_in "Email", with: existing_user.email
+		fill_in "Password", with: "password"
+		fill_in "Password confirmation", with: "passwor"
+		click_button "Sign up"		
+
+		expect(page).to have_content "Email has already been taken"
+	end
 end
