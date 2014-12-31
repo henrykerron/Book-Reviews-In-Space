@@ -4,7 +4,12 @@ class BooksController <ApplicationController
 	def index
 		@books = Book.all.order('created_at DESC')
 	end
-	def new 
+
+	def show
+		@books = Book.find(params[:id])
+	end
+
+	def new
 		@book = Book.new
 	end
 
