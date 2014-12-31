@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "post a book as a link", %q(
+feature "post a new book", %q(
 
 	As a user
 	I want to post a new book
@@ -12,7 +12,8 @@ feature "post a book as a link", %q(
 	[x] I must provide a description that is at least 10 characters long
 	[x] I must provide a valid URL to the book
 	[x] I must be presented with errors if I fill out the form incorrectly
-	[]	I must be signed in to add a new book
+	[x]	I must be signed in to add a new book
+	[x]	I must provide title as a link, to more details of the book
 	) do
 	context "authenticated user" do
 		before(:each) do
@@ -45,6 +46,10 @@ feature "post a book as a link", %q(
 			expect(page).to have_content("Title is too short (minimum is 1 characters)")
 			expect(page).to have_content("Description is too short (minimum is 10 characters)")
 			expect(page).to have_content("Url can't be blank")
+		end
+
+		scenario 'user posts title as a link' do
+			visit book_path
 		end
 	end
 
